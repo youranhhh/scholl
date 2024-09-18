@@ -79,6 +79,11 @@ public class UserController {
         return "redirect:/user/login";
     }
 
+       @RequestMapping("/r")
+    public String r(){
+        return "register";
+    }
+    
     @RequestMapping("/userlist")
     public String userList(Model model, HttpSession session) {
         User user = (User) session.getAttribute("user");
