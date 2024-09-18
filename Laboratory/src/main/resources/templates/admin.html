@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>管理员后台管理系统</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            loadModule('laboratorylist');
+
+            $('.menu-item').click(function() {
+                var module = $(this).data('module');
+                loadModule(module);
+                $('.menu-item').removeClass('active');
+                $(this).addClass('active');
+            });
+
+            function loadModule(module) {
+                $.ajax({
+                    url: module,
+                    type: 'GET',
+                    success: function(data) {
+                        $('#content').html(data);
+                    }
+                });
+            }
+
+            // 用于加载编辑和删除操作的内容
+            window.loadActionModule = function(url) {
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    success: function(data) {
+                        $('#content').html(data);
+                    }
+                });
+            };
+        });
+    </script>
+    <style> /* 样式表 */ .nav { width: 100%; height: 50px; background-color: rgba(0, 128, 128, 0.9); color: white; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; } .container-fluid { padding: 0 20px; } .layout { display: grid; grid-template-columns: 200px 1fr; } .menu { background-color: #f0f8ff; padding: 20px; height: calc(100vh - 50px); } .menu ul { list-style-type: none; padding: 0; margin: 0; } .menu-item { padding: 10px; cursor: pointer; border-radius: 5px; } .menu-item:hover, .menu-item.active { background-color: #b0e0e6; } #content { padding: 20px; } .logout-btn { display: block; text-align: right; margin-top: 20px; } </style>
+</head>
+<body>
+<div class="nav">
+    <p>欢迎, <span th:text="${session.user.userName}"></span></p>
+    <p>角色: <span th:text="${session.user.role}"></span></p>
+    <br>
+</div>
+<div class="container-fluid">
+    <div class="layout">
+        <div class="menu">
+            <ul>
+                <li class="list-group-item menu-item" data-module="/inspection_record/recordlist">巡查记录</li>
+                <li class="list-group-item menu-item" data-module="/inspection_record/resolve">问题处理单</li>
+
+
+            </ul>
+            <a href="/user/login"  class="list-group-item logout-btn">退出</a>
+        </div>
+        <div id="content">
+            <!-- Right content will be loaded here -->
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <title>列表</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .hovertable {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .hovertable th {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            font-size: 16px;
+            text-align: left;
+        }
+
+        .hovertable tr:hover td {
+            background-color: #f1f1f1;
+        }
+
+        .hovertable td {
+            border: 1px solid #ddd;
+            color: #333;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .hovertable td a {
+            text-decoration: none;
+            color: #f00;
+            cursor: pointer;
+        }
+
+        .hovertable td a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<!-- Table goes in the document BODY -->
+<table class="hovertable">
+    <tr>
+
+        <th>序列</th><th>学期</th><th>实验室</th><th>门窗</th><th>电器</th><th>消防</th><th>巡查时间</th><th>状态</th><th>操作</th>
+    </tr>
+    <tr style="background-color: rgb(212, 227, 229);" th:each="record : ${recordList}">
+
+        <td th:text="${record.Id}"></td>
+        <td th:text="${record.term.termName}"></td>
+        <td th:text="${record.laboratory.laboratoryName}"></td>
+        <td th:text="${record.door}"></td>
+        <td th:text="${record.device}"></td>
+        <td th:text="${record.fireFacilities}"></td>
+        <td th:text="${record.inspectionDate}"></td>
+        <td th:text="${record.status == 2 ? '异常' : '正常'}"></td>
+        <td>
+            <a th:href="@{/inspection_record/edit(Id=${record.Id})}">编辑</a>
+        </td>
+    </tr>
+
+</table>
+</body>
+</html>

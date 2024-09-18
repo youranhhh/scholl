@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dtz.mapper.LaboratoryMapper">
+
+    <resultMap id="BaseResultMap" type="com.dtz.pojo.Laboratory">
+            <result property="id" column="Id" jdbcType="INTEGER"/>
+            <result property="userId" column="user_id" jdbcType="INTEGER"/>
+            <result property="laboratoryName" column="laboratory_name" jdbcType="VARCHAR"/>
+            <result property="laboratoryLocation" column="laboratory_location" jdbcType="VARCHAR"/>
+            <result property="collegeId" column="college_id" jdbcType="INTEGER"/>
+        <association property="college" javaType="com.dtz.pojo.College">
+            <id property="id" column="Id"/>
+            <result property="collegeName" column="college_name"/>
+            <!-- 其他用户属性映射 -->
+        </association>
+        <association property="user" javaType="com.dtz.pojo.User">
+            <id property="id" column="Id"/>
+            <result property="userName" column="user_name"/>
+            <result property="password" column="password"/>
+            <result property="role" column="role"/>
+            <result property="collegeId" column="college_id"/>
+            <!-- 其他用户属性映射 -->
+        </association>
+    </resultMap>
+    <select id="listAll" resultMap="BaseResultMap">
+        SELECT
+            l.*,
+            c.college_name,
+            u.user_name
+        FROM laboratory l
+                 LEFT JOIN college c ON l.college_id = c.Id
+                 LEFT JOIN user u ON l.user_id = u.Id
+    </select>
+
+    <sql id="Base_Column_List">
+        laboratory_id,user_id,laboratory_name,
+        laboratory_location,college_id
+    </sql>
+</mapper>

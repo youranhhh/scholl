@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Article</title>
+    <style>
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 20px auto;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+            color: #555;
+        }
+        input[type="text"],
+        input[type="hidden"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        textarea {
+            height: 150px;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #4cae4c;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+<h1>编辑用户</h1>
+
+<form action="/user/save" method="post">
+    <input type="hidden" name="Id" th:value="${user.Id}"/>
+    <label for="userName">姓名：</label>
+    <input type="text" id="userName" name="userName" th:value="${user.userName}"/>
+    <br>
+    <label for="role">身份：</label>
+    <select id="role" name="role">
+        <option  value="superadmin" selected>超级管理员</option>
+        <option  value="admin" selected>实验室管理员</option>
+    </select>
+    <br>
+    <label for="collegeId">学院：</label>
+    <input type="text" id="collegeId" name="collegeId" th:value="${user.collegeId}"/>
+    <br>
+    <button type="submit">保存</button>
+</form>
+
+
+</body>
+</html>

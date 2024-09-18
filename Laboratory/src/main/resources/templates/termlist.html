@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <title>列表</title>
+    <style>
+
+        .hovertable {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .hovertable th {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            font-size: 16px;
+        }
+        .hovertable tr:hover td {
+            background-color: #f1f1f1;
+        }
+        .hovertable td {
+            border: 1px solid #ddd;
+            color: #333;
+            padding: 10px;
+            text-align: left;
+        }
+        .hovertable td a {
+            text-decoration: none;
+            color: #f00;
+            cursor: pointer;
+        }
+        .hovertable td a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<!-- Table goes in the document BODY -->
+<table class="hovertable">
+    <tr>
+
+        <th>序列</th><th>学期名</th><th>操作</th>
+    </tr>
+    <tr style="background-color: rgb(212, 227, 229);" th:each="term : ${term}">
+        <td th:text="${term.Id}"></td>
+        <td th:text="${term.termName}"></td>
+        <td>
+            <a th:href="@{/term/edit(Id=${term.Id})}">编辑</a>
+            <a th:href="@{/term/deleteterm/{Id}(Id=${term.Id})}"
+               th:onclick="return confirm('确定要删除这个用户吗？')">删除</a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

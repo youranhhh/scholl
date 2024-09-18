@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dtz.mapper.TermMapper">
+
+    <resultMap id="BaseResultMap" type="com.dtz.pojo.Term">
+            <result property="id" column="Id" jdbcType="INTEGER"/>
+            <result property="termName" column="term_name" jdbcType="VARCHAR"/>
+            <result property="recordId" column="record_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        term_id,term_name,record_id
+    </sql>
+</mapper>

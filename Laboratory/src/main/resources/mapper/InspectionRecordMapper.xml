@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dtz.mapper.InspectionRecordMapper">
+
+    <resultMap id="BaseResultMap" type="com.dtz.pojo.InspectionRecord">
+            <id property="id" column="Id" jdbcType="INTEGER"/>
+            <result property="userId" column="user_id" jdbcType="INTEGER"/>
+            <result property="termId" column="term_id" jdbcType="INTEGER"/>
+            <result property="status" column="status" jdbcType="INTEGER"/>
+            <result property="laboratoryId" column="laboratory_id" jdbcType="INTEGER"/>
+            <result property="door" column="door" jdbcType="VARCHAR"/>
+            <result property="device" column="device" jdbcType="VARCHAR"/>
+            <result property="fireFacilities" column="fire_facilities" jdbcType="VARCHAR"/>
+            <result property="inspectionDate" column="inspection_date" />
+        <association property="laboratory" javaType="com.dtz.pojo.Laboratory">
+            <id property="id" column="Id"/>
+            <result property="userId" column="user_id"/>
+            <result property="laboratoryName" column="laboratory_name"/>
+            <result property="laboratoryLocation" column="laboratoryLocation"/>
+            <result property="collegeId" column="college_id"/>
+            <!-- 其他用户属性映射 -->
+        </association>
+        <association property="user" javaType="com.dtz.pojo.User">
+            <id property="id" column="Id"/>
+            <result property="userName" column="user_name"/>
+            <result property="password" column="password"/>
+            <result property="role" column="role"/>
+            <result property="collegeId" column="college_id"/>
+            <!-- 其他用户属性映射 -->
+        </association>
+        <association property="term" javaType="com.dtz.pojo.Term">
+            <id property="id" column="Id"/>
+            <result property="termName" column="term_name"/>
+            <result property="recordId" column="record_id"/>
+
+            <!-- 其他用户属性映射 -->
+        </association>
+    </resultMap>
+    <select id="listAll" resultMap="BaseResultMap">
+        SELECT
+            i.*,
+            l.laboratory_name,
+            u.user_name,
+            t.term_name
+        FROM inspection_record i
+                 LEFT JOIN laboratory l ON i.laboratory_id = l.Id
+                 LEFT JOIN user u ON i.user_id = u.Id
+                 LEFT JOIN term t ON i.term_id = t.Id
+        WhERE
+            i.user_id = #{userId}
+    </select>
+    <select id="listli" resultMap="BaseResultMap">
+        SELECT
+            i.*,
+            l.laboratory_name,
+            u.user_name,
+            t.term_name
+        FROM inspection_record i
+                 LEFT JOIN laboratory l ON i.laboratory_id = l.Id
+                 LEFT JOIN user u ON i.user_id = u.Id
+                 LEFT JOIN term t ON i.term_id = t.Id
+        WhERE
+            i.status = 2
+
+    </select>
+    <select id="updateStatus" resultMap="BaseResultMap">
+        UPDATE inspection_record
+        SET status = #{status}
+        WHERE Id = #{id}
+    </select>
+    <sql id="Base_Column_List">
+        record_id,user_id,laboratory_id,
+        door,device,fire_facilities,
+        inspection_date
+    </sql>
+</mapper>

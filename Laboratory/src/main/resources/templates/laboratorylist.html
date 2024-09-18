@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <title>列表</title>
+    <style>
+
+        .hovertable {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .hovertable th {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            font-size: 16px;
+        }
+        .hovertable tr:hover td {
+            background-color: #f1f1f1;
+        }
+        .hovertable td {
+            border: 1px solid #ddd;
+            color: #333;
+            padding: 10px;
+            text-align: left;
+        }
+        .hovertable td a {
+            text-decoration: none;
+            color: #f00;
+            cursor: pointer;
+        }
+        .hovertable td a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<!-- Table goes in the document BODY -->
+<table class="hovertable">
+    <tr>
+
+        <th>序列</th><th>实验室名</th><th>教室编号</th><th>管理员</th><th>所属学院名</th><th>操作</th>
+    </tr>
+    <tr style="background-color: rgb(212, 227, 229);" th:each="laboratory : ${laboratory}">
+        <td th:text="${laboratory.Id}"></td>
+        <td th:text="${laboratory.laboratoryName}"></td>
+        <td th:text="${laboratory.laboratoryLocation}"></td>
+        <td th:text="${laboratory.user.userName}"></td>
+        <td th:text="${laboratory.college.collegeName}"></td>
+        <td>
+            <a th:href="@{/laboratory/edit(Id=${laboratory.Id})}">编辑</a>
+            <a th:href="@{/laboratory/deletelaboratory/{Id}(Id=${laboratory.Id})}"
+               th:onclick="return confirm('确定要删除这个用户吗？')">删除</a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

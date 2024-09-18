@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Title</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            max-width: 400px;
+        }
+
+        label {
+            margin-top: 10px;
+            color: #666;
+        }
+
+        input[type="text"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            height: 100px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #4cae4c;
+        }
+    </style>
+</head>
+<body>
+<h1>新增巡查单</h1>
+
+<form action="/inspection_record/insert" method="post" enctype="application/x-www-form-urlencoded">
+    <input type="hidden" name="Id" th:value="${record.Id}"/>
+    <label for="termId">选择学期：</label>
+    <input type="text" id="termId" name="termId" th:value="${record.termId}"/>
+    <br>
+    <label for="laboratoryId">选择实验室：</label>
+    <textarea type="text" id="laboratoryId" name="laboratoryId" th:text="${record.laboratoryId}"></textarea>
+    <br>
+    <label for="door">门窗：</label>
+    <input type="text" id="door" name="door" th:value="${record.door}"/>
+    <br>
+    <label for="device">电器：</label>
+    <input type="text" id="device" name="device" th:value="${record.device}"/>
+    <br>
+    <label for="fireFacilities">消防：</label>
+    <input type="text" id="fireFacilities" name="fireFacilities" th:value="${record.fireFacilities}"/>
+    <br>
+    <label for="inspectionDate">巡查时间：</label>
+    <input type="text" id="inspectionDate" name="inspectionDate" readonly/>
+    <br>
+    <label for="status">状态：</label>
+    <select id="status" name="status">
+        <option value="1">通过</option>
+        <option value="2">异常</option>
+    </select>
+    <br>
+    <button type="submit">新增</button>
+</form>
+</body>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // 获取当前日期，格式为YYYY-MM-DD
+        var currentDate = new Date().toISOString().split('T')[0];
+        document.getElementById("inspectionDate").value = currentDate;
+    });
+</script>
+</html>
